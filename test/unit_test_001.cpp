@@ -68,60 +68,49 @@ unittest(test_constants)
 }
 
 
-unittest(test_getType)
+unittest(test_constructor)
 {
-  MTP40F sensor = MTP40C(&Serial);
+  MTP40F sensor = MTP40F(&Serial);
+  
   assertEqual(5, sensor.getType());
+  assertTrue(sensor.begin(addr));
+  assertEqual(100, sensor.getTimeout());
+  assertEqual(0, sensor.lastRead());
+  assertEqual(MTP40F_OK, sensor.lastError());
 }
 
 
-unittest(test_begin)
-{
-  MTP40F sensor = MTP40F(&Serial);
-
-  for (int addr = 248; addr < 256; addr++)
-  {
-    assertFalse(sensor.begin(addr));
-  }
-  // assertTrue(sensor.begin());  blocks!
-
-  // assertFalse(sensor.isConnected());  blocks!
-}
-
-
-unittest(test_address)
-{
-  MTP40F sensor = MTP40F(&Serial);
-  // assertTrue(sensor.begin());  blocks!
-
-  // assertEqual(0x64, sensor.getAddress());
-  for (int addr = 248; addr < 256; addr++)
-  {
-    assertFalse(sensor.setAddress(addr));
-  }
-  // assertFalse(sensor.setAddress(50));
-}
 
 
 unittest(test_air_pressure)
 {
   MTP40F sensor = MTP40F(&Serial);
-  // assertTrue(sensor.begin());    //  default address
 
-  // assertEqual(-999, sensor.getAirPressureReference());
+  assertEqual(MTP40F_INVALID_AIR_PRESSURE, sensor.getAirPressureReference());
+  assertFalse(sensor.getSuppressError());
+  sensor.suppressError(true);
+  assertEqual(0, sensor.getAirPressureReference());
+  sensor.suppressError(false);
+  assertEqual(MTP40F_INVALID_AIR_PRESSURE, sensor.getAirPressureReference());
 
-  assertFalse(sensor.setAirPressureReference(600.0));
-  assertFalse(sensor.setAirPressureReference(1200.0));
-  // assertFalse(sensor.setAirPressureReference(1000.0));
+  assertFalse(sensor.setAirPressureReference(699.0));
+  assertFalse(sensor.setAirPressureReference(1101));
+
+  //  no communication
+  assertFalse(sensor.setAirPressureReference(1000.0));
 }
 
 
 unittest(test_gas_concentration)
 {
   MTP40F sensor = MTP40F(&Serial);
-  // assertTrue(sensor.begin());
 
-  // assertEqual(0, sensor.getGasConcentration());
+  assertEqual(MTP40F_INVALID_GAS_LEVEL, sensor.getGasConcentration());
+  assertFalse(sensor.getSuppressError());
+  sensor.suppressError(true);
+  assertEqual(0, sensor.getGasConcentration());
+  sensor.suppressError(false);
+  assertEqual(MTP40F_INVALID_GAS_LEVEL, sensor.getGasConcentration());
 }
 
 
@@ -132,9 +121,11 @@ unittest(test_single_point_correction)
 
   // assertFalse(sensor.getSinglePointCorrectionReady());
 
-  assertFalse(sensor.setSinglePointCorrection(399.9));
-  assertFalse(sensor.setSinglePointCorrection(5000.1));
-  // assertFalse(sensor.setSinglePointCorrection(1000.0));
+  assertFalse(sensor.setSinglePointCorrection(399));
+  assertFalse(sensor.setSinglePointCorrection(2001));
+
+  //  no communication
+  assertFalse(sensor.setSinglePointCorrection(1000.0));
 }
 
 

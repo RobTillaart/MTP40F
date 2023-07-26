@@ -28,6 +28,7 @@ bool MTP40F::begin()
   _airPressureReference = 0;
   _gasLevel      = 0;
   _suppressError = false;
+  _lastError     = MTP40F_OK;
   return true;
 }
 

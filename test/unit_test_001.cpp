@@ -73,7 +73,7 @@ unittest(test_constructor)
   MTP40F sensor = MTP40F(&Serial);
   
   assertEqual(5, sensor.getType());
-  assertTrue(sensor.begin(addr));
+  assertTrue(sensor.begin());
   assertEqual(100, sensor.getTimeout());
   assertEqual(0, sensor.lastRead());
   assertEqual(MTP40F_OK, sensor.lastError());
@@ -132,7 +132,7 @@ unittest(test_single_point_correction)
 unittest(test_self_calibration)
 {
   MTP40F sensor = MTP40F(&Serial);
-  // assertTrue(sensor.begin());    //  default address
+  // assertTrue(sensor.begin());
 
   // assertFalse(sensor.openSelfCalibration());
   // assertFalse(sensor.closeSelfCalibration());
@@ -143,7 +143,7 @@ unittest(test_self_calibration)
 unittest(test_self_calibration_hours)
 {
   MTP40F sensor = MTP40F(&Serial);
-  // assertTrue(sensor.begin());    //  default address
+  // assertTrue(sensor.begin());
 
   assertFalse(sensor.setSelfCalibrationHours(23));
   assertFalse(sensor.setSelfCalibrationHours(721));

@@ -14,7 +14,7 @@
 #include "MTP40F.h"
 #include "SoftwareSerial.h"
 
-SoftwareSerial sws(6, 7);
+SoftwareSerial sws(7, 6);
 
 MTP40F mtp(&sws);       // use hardware Serial1 for MTP40C sensor
 
@@ -26,7 +26,7 @@ void setup()
   // Serial.print("MTP40F_LIB_VERSION:\t");
   // Serial.println(MTP40F_LIB_VERSION);
 
-  sws.begin(19200);
+  sws.begin(9600);
   mtp.begin();
 }
 

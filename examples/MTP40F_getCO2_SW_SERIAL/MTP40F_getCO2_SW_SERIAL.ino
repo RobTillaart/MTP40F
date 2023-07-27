@@ -30,7 +30,6 @@ void setup()
     Serial.println("could not connect!");
     while (1);
   }
-
 }
 
 

@@ -23,7 +23,7 @@ MTP40F::MTP40F(Stream * str)
 
 bool MTP40F::begin()
 {
-  _timeout       = 1000;
+  _timeout       = 100;
   _lastRead      = 0;
   _airPressureReference = 0;
   _gasLevel      = 0;

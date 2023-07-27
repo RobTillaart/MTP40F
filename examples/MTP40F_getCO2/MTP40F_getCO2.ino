@@ -12,10 +12,10 @@
 #include "MTP40F.h"
 #include "SoftwareSerial.h"
 
-//  SoftwareSerial sws(6, 7);
+//  SoftwareSerial sws(7, 6);
 
 // MTP40F mtp(&sws);
-MTP40F mtp(&Serial2);  // MEGA, ESP32
+MTP40F mtp(&Serial1);  // MEGA, ESP32
 
 int lines = 10;
 

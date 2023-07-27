@@ -215,15 +215,10 @@ moments. Valid values are 24 - 720 .
 - TODO in code
 - ERROR handling.
 - store SPC point in the class?
-- CRC
-  - keep in sync with MTP40 if possible
-  - CRC in PROGMEM
-  - CRC test responses sensor
-  - CRC in formula to save memory
-```
-Sketch uses 4732 bytes (14%) of program storage space. Maximum is 32256 bytes.
-Global variables use 889 bytes (43%) of dynamic memory, 
-```
+- getAirPressureReference could be smarter 
+  - always same value
+  - from cache
+  - dirty flag (-1);
 
 #### Could 
 

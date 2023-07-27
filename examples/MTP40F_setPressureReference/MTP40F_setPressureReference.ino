@@ -30,17 +30,19 @@ void setup()
   mtp.begin();
 
   Serial.print("990:\t");
-  Serial.println(mtp.setAirPressureReference(990));
+  Serial.print(mtp.setAirPressureReference(990));
+  Serial.print("\t");
   delay(5000);
   Serial.println(mtp.getAirPressureReference());
-  delay(100);
+  delay(5000);
 
 
   Serial.print("1013:\t");
-  Serial.println(mtp.setAirPressureReference(1013));
+  Serial.print(mtp.setAirPressureReference(1013));
+  Serial.print("\t");
   delay(5000);
   Serial.println(mtp.getAirPressureReference());
-  delay(100);
+  delay(5000);
 }
 
 

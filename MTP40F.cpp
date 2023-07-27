@@ -162,8 +162,8 @@ uint16_t MTP40F::getSelfCalibrationHours()
   uint8_t cmd[9] = { 0x42, 0x4D, 0xA0, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 };
   if (request(cmd, 9, 11) )
   {
-    uint16_t hrs = _buffer[8] * 256 + _buffer[7];
-    return hrs;  //  optional test range?
+    uint16_t hrs = _buffer[7] * 256 + _buffer[8];
+    return hrs;
   }
   return 0xFFFF;  //  TODO define error constant
 }
@@ -173,8 +173,8 @@ bool MTP40F::setSelfCalibrationHours(uint16_t hrs)
 {
   if ((hrs < 24) || (hrs > 720)) return false;
   uint8_t cmd[11] = { 0x42, 0x4D, 0xA0, 0x00, 0x09, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00 };
-  cmd[7] = hrs & 0xFF;
-  cmd[8] = hrs / 256;
+  cmd[7] = hrs / 256;
+  cmd[8] = hrs & 0xFF;
   if (request(cmd, 11, 10) )
   {
     return (_buffer[7] == 0x00);

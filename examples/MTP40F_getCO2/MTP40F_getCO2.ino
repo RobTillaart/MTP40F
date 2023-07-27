@@ -28,7 +28,7 @@ void setup()
   // Serial.println(MTP40_LIB_VERSION);
 
   //  sws.begin(9600);
-  Serial2.begin(9600);
+  Serial1.begin(9600);
   mtp.begin();
 
   // if (mtp.begin() == false)
@@ -60,4 +60,3 @@ void loop()
 
 
 //  -- END OF FILE --
-

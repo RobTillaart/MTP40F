@@ -12,10 +12,10 @@
 #include "MTP40F.h"
 #include "SoftwareSerial.h"
 
-SoftwareSerial sws(6, 7);
+//  SoftwareSerial sws(6, 7);
 
-MTP40F mtp(&sws);
-// MTP40F mtp(&Serial1);
+// MTP40F mtp(&sws);
+MTP40F mtp(&Serial2);  // MEGA, ESP32
 
 int lines = 10;
 
@@ -27,8 +27,9 @@ void setup()
   // Serial.print("MTP40_LIB_VERSION:\t");
   // Serial.println(MTP40_LIB_VERSION);
 
-  sws.begin(19200);
-  mtp.begin();  // default 0x64
+  //  sws.begin(9600);
+  Serial2.begin(9600);
+  mtp.begin();
 
   // if (mtp.begin() == false)
   // {

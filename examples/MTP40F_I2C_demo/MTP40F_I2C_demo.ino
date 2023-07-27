@@ -19,12 +19,14 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println(__FILE__);
+
+  Wire.begin();
 }
 
 
 void loop()
 {
-  uint16_t ppm = readMTP40F(0x31);
+  uint16_t ppm = readMTP40F(0x32);  //  address with I2C scanner
   Serial.print("PPM: ");
   Serial.println(ppm);
 
@@ -53,21 +55,15 @@ void loop()
 uint16_t readMTP40F(int address)
 {
   Wire.beginTransmission(address);
-  Wire.write(0x52);
+  Wire.write(0x03);
   if (Wire.endTransmission() != 0) return 0;
 
-  if (Wire.requestFrom(address, 7) == 7)
+  if (Wire.requestFrom(address, 3) == 3)
   {
-    //  read 0x08
-    Wire.read();
-
     uint16_t ppm = Wire.read() * 256;
     ppm += Wire.read();
-    // read 4x 0x00
-    Wire.read();
-    Wire.read();
-    Wire.read();
-    Wire.read();
+    uint8_t status = Wire.read();
+    if (status == 0xFF) Serial.print(" - error - ");
     return ppm;
   }
   return 0;

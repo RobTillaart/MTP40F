@@ -9,7 +9,7 @@
 #include "MTP40F.h"
 #include "SoftwareSerial.h"
 
-SoftwareSerial sws(3, 2);
+SoftwareSerial sws(7, 6);
 MTP40F mtp(&sws);
 
 int lines = 10;
@@ -24,7 +24,7 @@ void setup()
   Serial.println(MTP40F_LIB_VERSION);
 
   // SERIAL OF MTP40F SENSOR
-  sws.begin(19200);
+  sws.begin(9600);
   if ( mtp.begin() == false)
   {
     Serial.println("could not connect!");

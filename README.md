@@ -18,7 +18,7 @@ It is based upon my https://github.com/RobTillaart/MTP40C library.
 
 The MTP40F sensor is an NDIR (Non Dispersive InfraRed) CO2 sensor.
 
-The sensor communicates over a 19200 baud serial (TTL) interface with a microprocessor or PC. 
+The sensor communicates over a 9600 baud serial (TTL) interface with a microprocessor or PC. 
 This implies that calls which can take up to 25 bytes can take as much as about 20 milliseconds.
 
 On the other hand this low baud rate implies it will work over relative long distances.

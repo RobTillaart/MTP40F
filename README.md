@@ -30,39 +30,34 @@ However minimal examples are added to have a starter but these
 need to be tested if and how well these work.
 
 
-### Hardware interface
-
-
-#### MTP40-F  
-
-TODO check
+### Hardware interface MTP40-F  
 
 Has TTL level RS232, I2C and PWM IO.
 
 ```
-               TOPVIEW MTP40-F
-              +-------------+
-              |             | 
-    VCC   5 --|             |-- 1 Vin
-    TX    6 --|             |-- 2 GND
-    RX    7 --|             |-- 3 ALARM
-    NC    8 --|             |-- 4 PWM / I2C
-    GND   9 --|             |
-              |             |
-              +-------------+
+                        TOPVIEW MTP40-F
+                       +-------------+
+                       |             | 
+    VCC (3v3 out)  5 --|             |-- 1 Vin
+    TX             6 --|             |-- 2 GND
+    RX             7 --|             |-- 3 ALARM
+    NC             8 --|             |-- 4 PWM / I2C
+    GND            9 --|             |
+                       |             |
+                       +-------------+
 ```
 
-| Pin  | Name    | Description                 |
-|:----:|:--------|:----------------------------|
-|  1   | Vin     | 4.2V--5.5V                  |
-|  2   | GND     | idem                        |
-|  3   | ALARM   | HIGH above 2000 PPM, LOW below 1800 PPM (hysteresis) |
-|  4   | PWM/I2C | PWM out or I2C select       |
-|  5   | VCC_O   | 3V3 out for serial          |
-|  6   | TX      | Transmit 19200 baud or SDA  |
-|  7   | RX      | Receive 19200 baud or SCL   |
-|  8   | NC      | Not Connected               |
-|  9   | GND     | idem                        |
+|  Pin  |  Name     |  Description                 |
+|:-----:|:----------|:-----------------------------|
+|   1   |  Vin      |  4.2V - 5.5V                 |
+|   2   |  GND      |  idem                        |
+|   3   |  ALARM    |  HIGH above 1000 PPM, LOW below 800 PPM (hysteresis) |
+|   4   |  PWM/I2C  |  PWM out                     |
+|   5   |  VCC_O    |  3V3 out for serial          |
+|   6   |  TX       |  Transmit 9600 baud or SDA   |
+|   7   |  RX       |  Receive 9600 baud or SCL    |
+|   8   |  R/T      |  select I2C / Serial         |
+|   9   |  GND      |  idem                        |
 
 
 #### Links
@@ -80,12 +75,13 @@ Has TTL level RS232, I2C and PWM IO.
 
 #### Warnings
 
-During tests with an UNO the communication over Software Serial did fail sometimes.
-Therefore it is important to **always check return values** to make your project more robust.
+During tests with an UNO the communication over Software Serial did 
+fail a few times.
+Therefore it is important to **always check return values** 
+to make your project more robust.
 
 During tests it became clear that the sensor needs time to process 
-commands e.g. **setSelfCalibration()**. By having a delay(100) between the calls
-everything ran far more stable (within my test). Todo seek optimum delay(), added in Future section below.
+commands e.g. **setSelfCalibration()**.
 
 The CRC of the sensor responses are not verified by the library.
 
@@ -94,12 +90,8 @@ The CRC of the sensor responses are not verified by the library.
 
 - **MTP40F(Stream \* str)** constructor. should get a Serial port as parameter e.g. \&Serial, \&Serial1 
 or a software Serial port. That Serial port must connect to the sensor. 
-- **bool begin(uint8_t address = 0x64)** initialize the device.
-Sets the address to communicate to the sensor. Address values allowed 0 .. 247.
-Uses the factory default value of 0x64 when no parameter is given.
-Also resets internal settings.
-- **bool isConnected()** returns true if the address as set by **begin()** 
-or the default address of 0x64 (decimal 100) can be found on the Serial 'bus'.
+- **bool begin()** initialize the device.
+Resets internal settings.
 - **uint8_t getType()** returns type, see below.
 Return 255 for the MTP40 base class.
 
@@ -126,21 +118,6 @@ Reading resets internal error to MTP40F_OK;
 
 
 #### Configuration
-
-- **uint8_t getAddress()** request the address from the device.
-Expect a value from 0 .. 247.
-Returns **MTP40_INVALID_ADDRESS** (0xFF) if the request fails.
-- **bool setAddress(uint8_t address = 0x64)** set a new address for the device. 
-0x64 as default. Returns false if not successful. 
-If **setSpecificAddress()** is called, this specific address will be used for further commands.
-
-These address functions are only needed if handling multiple devices. (to be tested)
-- **void setGenericAddress()** uses the broadcast address 0xFE in all requests. 
-This is the default behaviour of the library.
-- **void setSpecificAddress()** uses the address specified in **begin()** or 
-**setAddress()** or the default 0x64 in all requests.
-- **bool useSpecificAddress()** returns true if the specific address is used.
-Returns false if the generic / broadcast address is used.
 
 The library can set a maximum timeout in the communication with the sensor.
 Normally this is not needed to set as the default of 100 milliseconds is long enough
@@ -207,21 +184,15 @@ moments. Valid values are 24 - 720 .
 ## Future
 
 #### Must
-
 - update documentation
-- test with hardware
+  - reorder
 
 #### Should 
 - TODO in code
 - ERROR handling.
-- store SPC point in the class?
-- getAirPressureReference could be smarter 
-  - always same value
-  - from cache
-  - dirty flag (-1);
+
 
 #### Could 
-
 - Performance
   - performance measurements
   - optimize performance if possible
@@ -229,10 +200,20 @@ moments. Valid values are 24 - 720 .
   - seek optimum delay() between calls.
   - investigate wire length
 - serial bus with multiple devices? => diodes
-- improve readability code (e.g. parameter names)
+  - separate document
+- improve readability code 
+  - e.g. parameter names
 - move all code from .h to .cpp file
-- commands in PROGMEM?
-
+- reuse command buffer as return buffer?
+  - saves a bit.
+- getAirPressureReference could be smarter 
+  - always same value
+  - from cache
+  - dirty flag (-1);
+- investigate timing of calls 
+  - do they all need timeout of 4 seconds?
 
 #### Wont
+
+- store SPC point in the class?
 

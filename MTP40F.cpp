@@ -102,7 +102,7 @@ bool MTP40F::setSinglePointCorrection(uint32_t spc)
 
   uint8_t cmd[13] = { 0x42, 0x4D, 0xA0, 0x00, 0x04, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
   cmd[7]  = 0;
-  cmd[8]  = 0;  
+  cmd[8]  = 0;
   cmd[9]  = spc / 256;
   cmd[10] = spc % 256;
   if (request(cmd, 13, 10) )
@@ -199,7 +199,6 @@ bool MTP40F::request(uint8_t *data, uint8_t commandLength, uint8_t answerLength)
 {
   //  calculate CRC of command
   uint16_t crc = CRC(data, commandLength - 2);
-  //  Serial.println(crc, HEX);
   data[commandLength - 2] = crc / 256;
   data[commandLength - 1] = crc & 0xFF;
   while (commandLength--)
@@ -214,7 +213,6 @@ bool MTP40F::request(uint8_t *data, uint8_t commandLength, uint8_t answerLength)
      yield();   //  because baud rate is low!
   }
 
-  //  Serial.print("XX: ");
   uint32_t start = millis();
   uint8_t i = 0;
   while (i < answerLength)
@@ -222,15 +220,10 @@ bool MTP40F::request(uint8_t *data, uint8_t commandLength, uint8_t answerLength)
     if (millis() - start > _timeout) return false;
     if (_ser->available())
     {
-      _buffer[i] = _ser->read();
-      //  Serial.print(_buffer[i], HEX);
-      //  Serial.print(" ");
-      i++;
+      _buffer[i++] = _ser->read();
     }
     yield();  //  because baud rate is low!
   }
-  //  Serial.println();
-  //  Serial.println(i);
   return true;
 }
 

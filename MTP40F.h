@@ -67,7 +67,7 @@ public:
 
 protected:
   Stream * _ser;
-  uint8_t  _buffer[24];   //  should be big enough.
+  uint8_t  _buffer[16];
 
   uint32_t _timeout       = 100;
   uint32_t _lastRead      = 0;

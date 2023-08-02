@@ -35,7 +35,7 @@ MTP40F mtp(&sws);
 // MTP40F mtp(&Serial1);
 
 int lines = 10;
-
+uint32_t lastRead = 0;
 
 void setup()
 {
@@ -57,8 +57,9 @@ void loop()
     Serial.println("\nTIME\tPRESSURE (mbar)");
   }
 
-  if (millis() - mtp.lastRead() >= 5000)
+  if (millis() - lastRead >= 1000)
   {
+    lastRead = millis();
     Serial.print(millis());
     Serial.print("\t");
     Serial.print(mtp.getAirPressureReference(), 1);

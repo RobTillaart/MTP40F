@@ -66,7 +66,7 @@ void loop()
     Serial.println("\nTIME\tCO2 LEVEL");
   }
 
-  if (millis() - mtp.lastRead() >= 5000)
+  if (millis() - mtp.lastRead() >= 2500)
   {
     Serial.print(millis());
     Serial.print("\t");

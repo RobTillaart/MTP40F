@@ -49,7 +49,7 @@ void setup()
 
 void loop()
 {
-  if (millis() - mtp.lastRead() >= 5000)
+  if (millis() - mtp.lastRead() >= 2500)
   {
     Serial.print(mtp.getGasConcentration());
     Serial.println();

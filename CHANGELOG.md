@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add **MTP40F_REQUEST_FAILED** (error handling is still to do)
 - add default value to **setAirPressureReference(apr = 1013)**
 - add default value to **setSelfCalibrationHours(hours = 168)**
+- update examples
 
 
 ## [0.1.0] - 2023-07-25

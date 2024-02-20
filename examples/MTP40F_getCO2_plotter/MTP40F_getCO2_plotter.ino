@@ -32,7 +32,7 @@
 
 SoftwareSerial sws(7, 6);
 
-MTP40F mtp(&sws);       // use hardware Serial1 for MTP40C sensor
+MTP40F mtp(&sws);       // use hardware Serial1 for MTP40F sensor
 
 
 void setup()

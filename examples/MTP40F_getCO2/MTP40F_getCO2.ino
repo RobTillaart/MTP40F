@@ -42,8 +42,8 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println(__FILE__);
-  Serial.print("MTP40_LIB_VERSION:\t");
-  Serial.println(MTP40_LIB_VERSION);
+  Serial.print("MTP40F_LIB_VERSION:\t");
+  Serial.println(MTP40F_LIB_VERSION);
 
   //  sws.begin(9600);
   Serial1.begin(9600);

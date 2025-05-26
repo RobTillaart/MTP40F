@@ -27,7 +27,10 @@
 class MTP40F
 {
 public:
+  MTP40F();
   MTP40F(Stream * stream);
+
+  void     setStream(Stream * stream);
 
   bool     begin();
 
@@ -82,6 +85,7 @@ protected:
   bool     _suppressError = false;
   int      _lastError     = MTP40F_OK;
 
+  void     init();
   bool     request(uint8_t *data, uint8_t commandLength, uint8_t responseLength);
   uint16_t CRC(uint8_t *data, uint16_t length);
 };

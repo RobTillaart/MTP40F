@@ -13,13 +13,30 @@
 //  #define MTP40F_DEBUG    1
 
 
+MTP40F::MTP40F()
+{
+  init();
+}
+
+
 MTP40F::MTP40F(Stream * stream)
 {
+  init();
   _ser = stream;
+}
+
+
+void MTP40F::init()
+{
   _buffer[0] = '\0';
   _type = 5;
 }
 
+
+void MTP40F::setStream(Stream * stream)
+{
+  _ser = stream;
+}
 
 bool MTP40F::begin()
 {

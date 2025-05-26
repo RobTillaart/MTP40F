@@ -20,6 +20,7 @@
 #define MTP40F_INVALID_AIR_PRESSURE           0x01
 #define MTP40F_INVALID_GAS_LEVEL              0x02
 #define MTP40F_INVALID_CRC                    0x10
+#define MTP40F_NO_STREAM                      0x20
 #define MTP40F_INVALID_ADDRESS                0xFF
 #define MTP40F_REQUEST_FAILED                 0xFFFF
 
@@ -72,7 +73,7 @@ public:
 //  PROTECTED
 //
 protected:
-  Stream * _ser;
+  Stream * _ser           = NULL;
   uint8_t  _buffer[16];
 
   uint32_t _timeout       = 100;

@@ -35,6 +35,7 @@ void MTP40F::init()
 
 void MTP40F::setStream(Stream * stream)
 {
+  init();
   _ser = stream;
 }
 
@@ -232,6 +233,11 @@ int MTP40F::lastError()
 //
 bool MTP40F::request(uint8_t *data, uint8_t commandLength, uint8_t responseLength)
 {
+  if (_ser == NULL) {
+    _lastError = MTP40F_NO_STREAM;
+    return false;
+  }
+
   //  calculate CRC of command
   uint16_t crc = CRC(data, commandLength - 2);
   data[commandLength - 2] = crc / 256;
